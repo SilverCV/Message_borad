@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>留言板</title>
+	<meta charset="utf-8">
+</head>
+<body>
+	<h1>留言区</h1>
+	<form method="POST" action="/msggate/">
+		{% csrf_token %}
+		留言人甲：<input type="text" name="userA"></br>
+		接收人乙：<input type="text" name="userB"></br>
+		发送内容：<input type="text" name="msg"></br>
+		<input type="submit" value="发送" >
+	</form>
+	<h1>获取留言区</h1>
+	<form action="/msggate/" method="get">
+		接收人乙：<input type="text" name="userC"></br>
+		<input type="submit" value="查询">
+	</form>
+	<h1>显示留言区</h1>
+	<form>
+	<table border="1">
+		
+		<thead>
+		<th>发件人</th>
+		<th>收件人</th>
+		<th>发送时间</th>
+		</thead>
+		<tbody>
+			{% for line in data %}
+			<tr>
+				<td>{{	line.time }}</td>
+				<td>{{	line.userA  }}</td>
+				<td>{{	line.msg  }}</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+	</form>
+</body>
+</html>
